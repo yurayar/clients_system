@@ -5,6 +5,7 @@ class Address < ApplicationRecord
   require 'batch_factory'
 
   def self.generateAgreements(file)
+    hash_worksheet = BatchFactory.from_file file, sheet_number: 1, keys: [:city, :street, :number]
     map = hash_worksheet.map {|row| row[:number]}
     map.each do |t|
       if Agreement.find_by(number: t).nil?
