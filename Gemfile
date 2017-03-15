@@ -41,6 +41,7 @@ gem 'selectize-rails'
 gem 'batch_factory', :git => 'git://github.com/jumph4x/batch-factory.git'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'ransack'
+gem 'yaml_db'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
