@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170312170518) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
     t.string   "street"
     t.integer  "agreement_id"
@@ -19,7 +22,7 @@ ActiveRecord::Schema.define(version: 20170312170518) do
     t.datetime "updated_at",       null: false
     t.string   "agreement_number"
     t.string   "city"
-    t.index ["agreement_id"], name: "index_addresses_on_agreement_id"
+    t.index ["agreement_id"], name: "index_addresses_on_agreement_id", using: :btree
   end
 
   create_table "agreements", force: :cascade do |t|
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170312170518) do
     t.integer  "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_agreements_on_company_id"
+    t.index ["company_id"], name: "index_agreements_on_company_id", using: :btree
   end
 
   create_table "companies", force: :cascade do |t|
@@ -51,8 +54,10 @@ ActiveRecord::Schema.define(version: 20170312170518) do
     t.datetime "updated_at",                          null: false
     t.string   "name"
     t.string   "surname"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "addresses", "agreements"
+  add_foreign_key "agreements", "companies"
 end
